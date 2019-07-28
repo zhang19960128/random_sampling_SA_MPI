@@ -14,7 +14,7 @@ int main(int argc,char* argv[]){
 	 readPT(argv[1]);
 	 int size_box;
 	 MPI_Barrier(MPI_COMM_WORLD);
-   SimulatedAnnealing(&PenaltyFunc,
+   SimulatedAnnealing(&PenaltyFunc_random,
 			 control::database[0],
 			 control::xop,
 			 control::paracount_bvv+control::paracount_charge,

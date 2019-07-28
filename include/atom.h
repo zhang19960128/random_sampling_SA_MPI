@@ -58,6 +58,7 @@ class box{
 		void printinfo();
         //zhenbang
         friend double PenaltyFunc(double* xp, box* system,int num,int index,int databasetick);
+        friend double* PenaltyFunc_random(double* xp, box* system,int num,int index,int databasetick);
         friend int referenceStruct(box* system, int systemSize);
 				friend void writeoutput(box* input,int size,int tick,int saiter,std::string deoptfile,std::string dfoptfile,std::string dsoptfile);
 		~box()

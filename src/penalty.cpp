@@ -244,7 +244,7 @@ double PenaltyFunc(double* xp, box* system,int numberone, int index,int database
     return Penaltyall;
 }
 /*add randomness when optmization*/
-double* PenaltyFunc(double* xp, box* system,int numberone, int index,int databasetick){
+double* PenaltyFunc_random(double* xp, box* system,int numberone, int index,int databasetick){
     int indexRef = index;
     mapjiahao(xp);
     double penalty = 0.0;

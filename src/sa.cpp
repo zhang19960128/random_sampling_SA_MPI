@@ -23,7 +23,7 @@ namespace saconst{
 #define NPAR 12
 #define NEPS 20
 #define EPS 1.0e-6
-void SimulatedAnnealing(double (*PenaltyFunc)(double*, box*,int,int,int), 
+void SimulatedAnnealing(double* (*PenaltyFunc_random)(double*, box*,int,int,int), 
 			box* system,
       double *xacc,
 			int    N,//number of parameters to be optimized.
@@ -45,7 +45,7 @@ void SimulatedAnnealing(double (*PenaltyFunc)(double*, box*,int,int,int),
    double vmratio;
    double metropolis;
    double penaltyp;
-   double sampling=new double control::database.size();
+   double* sampling=new double [control::database.size()];
    double* optimize_temp;
    double ratio,ratiop;
    int nnew,nfcnev,*nacp;
@@ -113,7 +113,7 @@ void SimulatedAnnealing(double (*PenaltyFunc)(double*, box*,int,int,int),
 			/*calculating penalty*/
 			penaltyp=0.0;
 		  for(size_t i=0;i<control::ionsize.size();i++){
-		    optimize_temp= PenaltyFunc(xp,control::database[i],control::ionsize[i],control::minienergytick[i],i);//Zhenbang
+		    optimize_temp= PenaltyFunc_random(xp,control::database[i],control::ionsize[i],control::minienergytick[i],i);//Zhenbang
             penaltyp=optimize_temp[0]+penaltyp;
             sampling[i]=optimize_temp[1];
           }
@@ -132,9 +132,9 @@ void SimulatedAnnealing(double (*PenaltyFunc)(double*, box*,int,int,int),
 				 	   write_opt_parameter(optout);
 		   		   safile<<"  NEW OPTIMUM "<<penaltyOPT<<"\t"<<saiter<<"\t"<<m<<"\t"<<j<<"\t"<<h<<"\t"<<xp[h]<<" "<<"the sampling is: ";
                    for(size_t i=0;i<control::ionsize.size();i++){
-                        saiter<<sampling[i]<<" ";
+                        safile<<sampling[i]<<" ";
                    }
-                   saiter<<std::endl;
+                   safile<<std::endl;
 						for(size_t i=0;i<control::ionsize.size();i++){
 							write_defile(i);
 						}

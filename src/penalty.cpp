@@ -309,8 +309,8 @@ double* PenaltyFunc_random(double* xp, box* system,int numberone, int index,int 
     else if(random_ness!=0){
         factor=1.0/random_ness;
     }
-    PenaltyE = PenaltyE/number*saconst::sa_eweight*factor;
-    PenaltyF = PenaltyF/(number*3*ionall[0].size)*saconst::sa_fweight*factor;
+    PenaltyE = PenaltyE*saconst::sa_eweight;
+    PenaltyF = PenaltyF/(3*ionall[0].size)*saconst::sa_fweight;
     penalty = PenaltyE + PenaltyF;
     double Penaltyall=0.0;
     int random_count=0;
@@ -323,7 +323,7 @@ double* PenaltyFunc_random(double* xp, box* system,int numberone, int index,int 
     delete [] dftenergy;
     delete [] diffenergy;
     double* result=new double[2];
-    result[0]=Penaltyall;
+    result[0]=Penaltyall/random_ness;
     result[1]=random_count+0.0;
     return result;
 }

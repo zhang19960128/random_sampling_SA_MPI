@@ -114,11 +114,12 @@ void SimulatedAnnealing(double* (*PenaltyFunc_random)(double*, box*,int,int,int)
 			penaltyp=0.0;
 		  for(size_t i=0;i<control::ionsize.size();i++){
 		    optimize_temp= PenaltyFunc_random(xp,control::database[i],control::ionsize[i],control::minienergytick[i],i);//Zhenbang
-            penaltyp=optimize_temp[0]+penaltyp;
+            penaltyp=optimize_temp[0]/optimize_temp[1]+penaltyp;
             sampling[i]=optimize_temp[1];
           }
 		  nfcnev += 1;
 			if(world_rank==0){
+                std::cout<<penaltyp<<std::endl;
 		  if (penaltyp < penaltyACC){
 				for(h0=0;h0<N;h0++)
 			   	xacc[h0] = xp[h0];
